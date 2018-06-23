@@ -10,6 +10,7 @@ app.get("/", (req, res) => res.send("Hello World!"))
 
 app.post("/event", (req, res) => {
   if (req.body.type === "url_verification") {
+    res.setHeader("Content-Type", "text/plain")
     res.send(req.body.challenge)
   } else {
     res.sendStatus(200)
