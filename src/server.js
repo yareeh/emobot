@@ -23,7 +23,7 @@ app.post("/event", (req, res) => {
       break
 
     case "message":
-      if (event.text && event.user) {
+      if (event.text && event.user && !event.subtype) {
         postMessage({ text: event.text }).then(() => {
           res.sendStatus(200)
         })
