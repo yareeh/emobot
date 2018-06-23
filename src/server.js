@@ -14,14 +14,16 @@ app.post("/event", (req, res) => {
   // eslint-disable-next-line no-console
   console.log(JSON.stringify(req.body))
 
-  switch (req.body.type) {
+  const event = req.body.event
+
+  switch (event.type) {
     case "url_verification":
       res.setHeader("Content-Type", "text/plain")
-      res.send(req.body.challenge)
+      res.send(event.challenge)
       break
 
     case "message":
-      postMessage({ text: req.body.text ? req.body.text : "lol" }).then(() =>
+      postMessage({ text: event.text ? event.text : "lol" }).then(() =>
         res.sendStatus(200)
       )
       break
