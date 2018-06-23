@@ -23,9 +23,9 @@ app.post("/event", (req, res) => {
       break
 
     case "message":
-      postMessage({ text: event.text ? event.text : "lol" }).then(() =>
-        res.sendStatus(200)
-      )
+      // postMessage({ text: event.text ? event.text : "lol" }).then(() =>
+      //   res.sendStatus(200)
+      // )
       break
 
     default:
