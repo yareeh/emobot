@@ -1,20 +1,11 @@
 import Jimp from "jimp"
+import { emojiList } from "./emojiList"
 
-export const emojis = {
-  allislost: true,
-  cry: true,
-  emoji: true,
-  finger: true,
-  thinking: true,
-  hug: true,
-  intense: true,
-  joy: true,
-  karhu: true,
-  laugh: true,
-  ping: true,
-  sheep: true,
-  toast: true
-}
+export const emojis = {}
+
+emojiList.forEach(e => {
+  emojis[e] = true
+})
 
 export function getEmoji(s) {
   const match = s.match(/:[a-z\-0-9]+:/)

@@ -1,7 +1,7 @@
 require("dotenv").config()
 import express from "express"
 import fetch from "node-fetch"
-import { create, emojis, getEmoji, unknowns } from "./emoji"
+import { create, getEmoji, unknowns } from "./emoji"
 import Jimp from "jimp"
 
 const PORT = process.env.PORT || 5000
@@ -46,32 +46,18 @@ app.post("/event", (req, res) => {
         const emoji = getEmoji(event.text)
         if (emoji && emoji.length > 0) {
           const us = unknowns(emoji)
-          if (us.length > 0) {
-            postMessage({
-              text: `I don't know ${us.join(", ")}. I only know ${Object.keys(
-                emojis
-              ).join(", ")}. Plz halp at https://github.com/yareeh/emobot`
-            }).then(() => {
-              res.sendStatus(200)
-            })
-          } else {
-            postMessage({
+          if (us.length === 0) {
+            return postMessage({
               text: `${process.env.EMOJI_URL}/${emoji.join("-")}`
             }).then(() => {
               res.sendStatus(200)
             })
           }
-        } else {
-          res.sendStatus(200)
         }
-      } else {
-        res.sendStatus(200)
       }
       break
-
-    default:
-      res.sendStatus(200)
   }
+  res.sendStatus(200)
 })
 
 // eslint-disable-next-line no-console
