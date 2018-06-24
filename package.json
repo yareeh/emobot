@@ -25,7 +25,8 @@
     "prettier": "1.13.5"
   },
   "scripts": {
-    "build": "bash list_emojis.sh && ./node_modules/.bin/babel src -d build",
+    "update-list": "bash list_emojis.sh",
+    "build": "./node_modules/.bin/babel src -d build",
     "clean": "rm -rf build && mkdir build && rm -f src/emojiList.js",
     "start": "yarn build && node build/server.js",
     "watch": "babel-watch src/server.js",
