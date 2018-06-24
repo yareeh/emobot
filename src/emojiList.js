@@ -1,1 +1,1 @@
-export const emojiList = ["allislost", "cry", "emoji", "finger", "hug", "intense", "joy", "karhu", "laugh", "ping", "sheep", "thinking", "toast"]
+export const emojiList = ["allislost", "bloodcry", "cool", "cry", "darthvader", "demoneye", "emoji", "finger", "hug", "intense", "jesus", "joy", "karhu", "laugh", "ping", "sadpanda", "sheep", "soumi", "thinking", "thug", "toast", "trollface"]
