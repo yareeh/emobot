@@ -29,6 +29,10 @@ app.post("/event", (req, res) => {
   // eslint-disable-next-line no-console
   console.log(JSON.stringify(req.body))
 
+  if (req.body.token !== process.env.AUTH_TOKEN) {
+    return res.sendStatus(401)
+  }
+
   const event = req.body.event
 
   switch (event.type) {
@@ -40,7 +44,7 @@ app.post("/event", (req, res) => {
     case "message":
       if (event.text && event.user && !event.subtype) {
         const emoji = getEmoji(event.text)
-        if (emoji.length > 0) {
+        if (emoji && emoji.length > 0) {
           const us = unknowns(emoji)
           if (us.length > 0) {
             postMessage({
@@ -57,6 +61,8 @@ app.post("/event", (req, res) => {
               res.sendStatus(200)
             })
           }
+        } else {
+          res.sendStatus(200)
         }
       } else {
         res.sendStatus(200)
