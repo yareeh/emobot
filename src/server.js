@@ -46,7 +46,7 @@ app.post("/event", (req, res) => {
             postMessage({
               text: `I don't know ${us.join(", ")}. I only know ${Object.keys(
                 emojis
-              ).join(", ")}`
+              ).join(", ")}. Plz halp at https://github.com/yareeh/emobot`
             }).then(() => {
               res.sendStatus(200)
             })
