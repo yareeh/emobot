@@ -1,6 +1,6 @@
 import Jimp from "jimp"
 
-const emojis = {
+export const emojis = {
   allislost: true,
   cry: true,
   emoji: true,

@@ -1,7 +1,7 @@
 require("dotenv").config()
 import express from "express"
 import fetch from "node-fetch"
-import { create, unknowns } from "./emoji"
+import { create, emojis, getEmoji, unknowns } from "./emoji"
 import Jimp from "jimp"
 
 const PORT = process.env.PORT || 5000
@@ -39,9 +39,25 @@ app.post("/event", (req, res) => {
 
     case "message":
       if (event.text && event.user && !event.subtype) {
-        postMessage({ text: event.text }).then(() => {
-          res.sendStatus(200)
-        })
+        const emoji = getEmoji(event.text)
+        if (emoji.length > 0) {
+          const us = unknowns(emoji)
+          if (us.length > 0) {
+            postMessage({
+              text: `I don't know ${us.join(", ")}. I only know ${Object.keys(
+                emojis
+              ).join(", ")}`
+            }).then(() => {
+              res.sendStatus(200)
+            })
+          } else {
+            postMessage({
+              text: `${process.env.EMOJI_URL}/${emoji.join("-")}`
+            }).then(() => {
+              res.sendStatus(200)
+            })
+          }
+        }
       } else {
         res.sendStatus(200)
       }
