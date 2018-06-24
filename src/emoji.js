@@ -5,7 +5,7 @@ export const emojis = {
   cry: true,
   emoji: true,
   finger: true,
-  hmm: true,
+  thinking: true,
   hug: true,
   intense: true,
   joy: true,
