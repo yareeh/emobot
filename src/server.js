@@ -1,10 +1,18 @@
 require("dotenv").config()
 import express from "express"
 import fetch from "node-fetch"
-import { create, getEmoji, unknowns } from "./emoji"
+import { create, emojis, getEmoji, unknowns } from "./emoji"
 import Jimp from "jimp"
 
 const PORT = process.env.PORT || 5000
+
+const motd = `I was just updated. I know ${Object.keys(emojis).join(
+  ", "
+)}. To teach me more plz halp at https://github.com/yareeh/emobot.`
+
+postMessage({
+  text: motd
+})
 
 const app = express()
 
