@@ -1,6 +1,8 @@
 require("dotenv").config()
 import express from "express"
 import fetch from "node-fetch"
+import { create, unknowns } from "./emoji"
+import Jimp from "jimp"
 
 const PORT = process.env.PORT || 5000
 
@@ -8,7 +10,20 @@ const app = express()
 
 app.use(express.json())
 
-app.get("/", (req, res) => res.send("Hello World!"))
+app.get("/emoji/:emojiName", (req, res) => {
+  const emojiName = req.params.emojiName
+  let emoji = emojiName.split("-")
+  if (unknowns(emoji).length === 0) {
+    res.header("Content-type", "image/png")
+    return create(emoji).then(e => {
+      e.getBuffer(Jimp.MIME_PNG, function(err, buffer) {
+        res.set("Content-Type", Jimp.MIME_PNG)
+        res.send(buffer)
+      })
+    })
+  }
+  res.sendStatus(400)
+})
 
 app.post("/event", (req, res) => {
   // eslint-disable-next-line no-console
