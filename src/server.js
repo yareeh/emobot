@@ -72,9 +72,15 @@ app.post("/event", (req, res) => {
 app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`))
 
 function postMessage(message) {
+  let body = JSON.stringify(message)
+  if (process.env.LOCAL) {
+    // eslint-disable-next-line no-console
+    console.log(body)
+    return Promise.resolve()
+  }
   return fetch(process.env.WEBHOOK_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(message)
+    body
   })
 }
