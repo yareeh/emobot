@@ -6,13 +6,9 @@ import Jimp from "jimp"
 
 const PORT = process.env.PORT || 5000
 
-const motd = `I was just updated. I know ${Object.keys(emojis).join(
-  ", "
-)}. To teach me more plz halp at https://github.com/yareeh/emobot.`
-
-postMessage({
-  text: motd
-})
+const helpMessage = `Say emoji name and I try to create it. I know ${Object.keys(
+  emojis
+).join(", ")}. To teach me more plz halp at https://github.com/yareeh/emobot.`
 
 const app = express()
 
@@ -51,6 +47,14 @@ app.post("/event", (req, res) => {
 
     case "message":
       if (event.text && event.user && !event.subtype) {
+        if (event.text.toLowerCase().includes("emobot help")) {
+          return postMessage({
+            text: helpMessage
+          }).then(() => {
+            res.sendStatus(200)
+          })
+        }
+
         const emoji = getEmoji(event.text)
         if (emoji && emoji.length > 0) {
           const us = unknowns(emoji)
