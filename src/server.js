@@ -1,3 +1,5 @@
+import { marquee } from "./marquee"
+
 require("dotenv").config()
 import express from "express"
 import fetch from "node-fetch"
@@ -29,6 +31,13 @@ app.get("/emoji/:emojiName", (req, res) => {
   res.sendStatus(400)
 })
 
+app.get("/marquee/:text1/:text2", (req, res) => {
+  marquee(req.params.text1, req.params.text2).then(e => {
+    res.set("Content-Type", Jimp.MIME_PNG)
+    res.send(e.buffer)
+  })
+})
+
 app.post("/event", (req, res) => {
   // eslint-disable-next-line no-console
   console.log(JSON.stringify(req.body))
@@ -49,6 +58,18 @@ app.post("/event", (req, res) => {
         if (event.text.toLowerCase().includes("emobot help")) {
           return postMessage({
             text: helpMessage
+          }).then(() => {
+            res.sendStatus(200)
+          })
+        }
+
+        if (event.text && event.text.startsWith("jaahas ")) {
+          const words = event.text.split(/\s+/)
+          const text1 = words.length >= 2 ? words[1] : "jaa"
+          const text2 =
+            words.length >= 3 ? words[2] : words.length === 2 ? words[1] : "has"
+          return postMessage({
+            text: `${process.env.HEROKU_URL}/marquee/${text1}/${text2}`
           }).then(() => {
             res.sendStatus(200)
           })
