@@ -63,7 +63,7 @@ app.post("/event", (req, res) => {
           })
         }
 
-        if (event.text && event.text.startsWith("jaahas ")) {
+        if (event.text && event.text.startsWith("jaahas")) {
           const words = event.text.split(/\s+/)
           const text1 = words.length >= 2 ? words[1] : "jaa"
           const text2 =
