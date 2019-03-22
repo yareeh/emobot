@@ -9,7 +9,7 @@ describe("server", () => {
       body: JSON.stringify({
         token: process.env.AUTH_TOKEN,
         challenge: "3eZbrw1aBm2rZgRNFdxV2595E9CY3gmdALWMmHkvFXO7tYXAYM8P",
-        type: "url_verification"
+        event: { type: "url_verification" }
       }),
       headers: { "Content-Type": "application/json" }
     })
@@ -27,7 +27,7 @@ describe("server", () => {
       body: JSON.stringify({
         token: process.env.AUTH_TOKEN,
         challenge: "3eZbrw1aBm2rZgRNFdxV2595E9CY3gmdALWMmHkvFXO7tYXAYM8P",
-        type: "foo"
+        event: { type: "foo" }
       }),
       headers: { "Content-Type": "application/json" }
     })

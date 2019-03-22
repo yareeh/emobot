@@ -25,6 +25,7 @@ describe("getEmoji", () => {
 describe("unknowns", () => {
   it("finds unknown elements", () => {
     expect(unknowns(["hmm", "karhu", "foo", "bar", "allislost"])).toEqual([
+      "hmm",
       "foo",
       "bar"
     ])

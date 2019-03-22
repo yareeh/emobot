@@ -42,8 +42,7 @@ app.post("/event", (req, res) => {
   switch (event.type) {
     case "url_verification":
       res.setHeader("Content-Type", "text/plain")
-      res.send(event.challenge)
-      break
+      return res.send(req.body.challenge)
 
     case "message":
       if (event.text && event.user && !event.subtype) {
