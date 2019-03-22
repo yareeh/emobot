@@ -69,7 +69,7 @@ app.post("/event", (req, res) => {
           const text2 =
             words.length >= 3 ? words[2] : words.length === 2 ? words[1] : "has"
           return postMessage({
-            text: `${process.env.HEROKU_URL}/marquee/${text1}/${text2}`
+            text: `${process.env.HEROKU_URL}marquee/${text1}/${text2}`
           }).then(() => {
             res.sendStatus(200)
           })
